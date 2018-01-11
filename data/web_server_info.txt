@@ -1,0 +1,67 @@
+------------
+Read Me File
+------------
+
+Mini Server 8 is a free product and does not contain commercial software!
+You can use it for free. - No installation required!
+Support for MySQL has been enabled. (Based on mini-server 2a)
+
+This server is portable meaning you can run it from any folder on any hard drive or
+copy all the files to a USB memory stick and run it from there. 
+
+-------------------
+Starting the server
+-------------------
+Run Server by double clicking on server_start.bat this creates a virtual drive.
+The drive letter used is the first available letter found.
+Server uses the port 8088
+
+Type http://localhost:8088 into a browser to view the site.
+
+------------------------
+Shutting down the server
+------------------------
+Double click on server_stop.bat. This shuts-down server and removes virtual drive
+
+--------------------------
+Change virtual drive
+--------------------------
+The server automatically detects the first free drive letter and uses that.
+You can override this in one of two ways:
+
+a) Start the server using a drive parameter for example:
+   server_start.bat z
+   this forces the server to use drive z
+
+b) Edit server_start.bat
+   Locate the following line:
+    rem set Disk=w 
+   Remove the rem and replace w with the letter you want to use.
+   Example:
+   set Disk=x
+   Forces the server to use drive letter x
+
+--------------------------
+Change server default port
+--------------------------
+Open file: httpd.conf
+Located in folder: \udrive\usr\local\apache2\conf
+Locate the lines:
+  Listen 8088 
+  ServerName localhost:8088
+Change to:
+  Listen 8080 
+  ServerName localhost:8080
+This moves the server to the standard secondary web server port
+Note: Type http://localhost:8080 into a browser to view the site.
+
+If port already in use try any value above 2000
+
+
+-----------------------------------------------------------
+Copyright 2002-2008 The Uniform Server Development Team
+All rights reserved.
+
+The authors were trying to make the best product so they 
+cannot be held responsible for any type of damage or 
+problems caused by using this or another software.
