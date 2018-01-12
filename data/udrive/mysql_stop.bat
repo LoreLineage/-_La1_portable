@@ -1,6 +1,6 @@
 @echo off
 echo.
-rem ## Save return path
+rem ## Сохраняю путь
 pushd %~dp0
 
 rem ## Check to see if already stopped
