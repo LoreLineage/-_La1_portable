@@ -1,12 +1,3 @@
-:#######################################################################
-:# File name: mysql_stop.bat
-:# Created By: The Uniform Server Development Team
-:# Edited Last By: Mike Gleaves (ric) 
-:# V 1.0 20-9-2008
-:# Comment: Redesigned to allow multi-MySQL servers
-:# on same PC. MySQL 5.0.51b-community-nt
-:######################################################################## 
-
 @echo off
 echo.
 rem ## Save return path

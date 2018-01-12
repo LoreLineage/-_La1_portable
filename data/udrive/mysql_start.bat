@@ -1,50 +1,36 @@
 @echo off
-
-rem ## Save return path
+rem ## Сохраняю путь
 pushd %~dp0
-
-rem ## Check to see if already stopped
-if NOT exist DB\data\mysql_mini.pid goto :NOTSTARTED
-
-rem ## It exists is it running
-SET /P pid=<DB\data\mysql_mini.pid
+rem ## Проверяю, не остановлено ли?
+if NOT exist SQL\data\mysql_mini.pid goto :NOTSTARTED
+rem ## Он существует?, он работает?
+SET /P pid=<SQL\data\mysql_mini.pid
 netstat -anop tcp | FIND /I " %pid%" >NUL
 IF ERRORLEVEL 1 goto :NOTRUNNING
 IF ERRORLEVEL 0 goto :RUNNING 
-
 :NOTRUNNING
-rem ## Not shutdown using mysql_stop.bat hence delete file
-del DB\data\mysql_mini.pid 
-
+rem ## Если сервер упал, удаляем файл
+del SQL\data\mysql_mini.pid 
 :NOTSTARTED
-rem ## Check for another server on this MySQL port
+rem ## Проверяю не занят ли порт
 netstat -anp tcp | FIND /I "0.0.0.0:3311" >NUL
 IF ERRORLEVEL 1 goto NOTFOUND
-echo.
-echo  Another server is running on port 3311 cannot run MySQL server
-echo.
+echo Port 3311 NOT FREE
 goto END
-
-rem ## Start server
+rem ## Запускаю сервер
 %Disk%:
-:start \bin\mysqld-opt.exe --defaults-file=/bin/my-small.cnf
-start \bin\mysqld-opt.exe
-
-rem ## Info to user
+:start SQL\bin\mysqld-opt.exe --defaults-file=/SQL/bin/my-small.cnf
+start SQL\bin\mysqld-opt.exe
+rem ## Информация для пользователя
 CLS
-echo.
-echo  The MySQL server is working on disk %Disk%:\ [port 3311]
+echo  MySQL working %Disk%:\ [port 3311]
 goto :END
-
 :RUNNING
 CLS
 echo.
-echo  This MySQL server already running.
-echo  You can stop the server using mysql_stop.bat
-
+echo  MySQL already running.
 :END
 echo.
 pause
-
-rem ## Return to caller
+rem ## Возврат
 popd
